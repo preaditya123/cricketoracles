@@ -21,11 +21,11 @@ export const mockData = {
         wickets: 0,
         overs: "0.0"
       },
-      status: "live",
+      status: "live" as const,
       venue: "Melbourne Cricket Ground, Australia",
       time: "14:30",
       series: "Border-Gavaskar Trophy 2025",
-      battingTeam: "team1"
+      battingTeam: "team1" as const
     },
     {
       id: "match2",
@@ -43,7 +43,7 @@ export const mockData = {
         wickets: 0,
         overs: "0.0"
       },
-      status: "upcoming",
+      status: "upcoming" as const,
       venue: "Lord's, London",
       time: "Tomorrow, 15:00",
       series: "Test Series 2025"
@@ -67,7 +67,7 @@ export const mockData = {
         wickets: 10,
         overs: "48.4"
       },
-      status: "completed",
+      status: "completed" as const,
       venue: "Dubai International Stadium",
       time: "",
       series: "Asia Cup 2025",
@@ -89,7 +89,7 @@ export const mockData = {
         wickets: 10,
         overs: "50.0"
       },
-      status: "completed",
+      status: "completed" as const,
       venue: "Lord's, London",
       time: "",
       series: "ICC World Cup 2025",
@@ -111,7 +111,7 @@ export const mockData = {
         wickets: 10,
         overs: "46.2"
       },
-      status: "completed",
+      status: "completed" as const,
       venue: "Sydney Cricket Ground",
       time: "",
       series: "ODI Series 2025",
