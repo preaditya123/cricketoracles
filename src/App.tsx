@@ -21,7 +21,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/match/:id" element={<MatchPage />} />
           <Route path="/past" element={<PastMatches />} />
-          <Route path="/matches" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
