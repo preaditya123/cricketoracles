@@ -1,5 +1,7 @@
+
 import { MatchProps } from "@/components/LiveMatchCard";
 import { CommentaryItem } from "@/components/Commentary";
+import { BallData } from "@/types/BallData";
 
 // Centralized mock data for consistent use across the application
 export const mockData = {
@@ -100,54 +102,135 @@ export const mockData = {
   commentary: [
     {
       id: "ball1",
-      over: "42.3",
+      ball_data: {
+        ball_number: 42.3,
+        batsman: "Virat Kohli",
+        bowler: "Pat Cummins",
+        runs_scored: 1,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { is_wicket: false },
+        match_context: {
+          current_score: { runs: 256, wickets: 4 },
+          overs: 42.3,
+          target: null
+        }
+      },
       text: "Cummins to Kohli, full delivery on middle and leg, driven firmly through mid-on for a single.",
-      timestamp: "14:32",
-      runs: 1
+      timestamp: "14:32"
     },
     {
       id: "ball2",
-      over: "42.2",
+      ball_data: {
+        ball_number: 42.2,
+        batsman: "Virat Kohli",
+        bowler: "Pat Cummins",
+        runs_scored: 4,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { is_wicket: false },
+        match_context: {
+          current_score: { runs: 255, wickets: 4 },
+          overs: 42.2,
+          target: null
+        }
+      },
       text: "Cummins to Kohli, FOUR! Beautiful shot! Slightly overpitched and Kohli drives it through the covers with impeccable timing. The ball races away to the boundary.",
       timestamp: "14:31",
-      runs: 4,
       isBoundary: true
     },
     {
       id: "ball3",
-      over: "42.1",
+      ball_data: {
+        ball_number: 42.1,
+        batsman: "Virat Kohli",
+        bowler: "Pat Cummins",
+        runs_scored: 0,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { is_wicket: false },
+        match_context: {
+          current_score: { runs: 251, wickets: 4 },
+          overs: 42.1,
+          target: null
+        }
+      },
       text: "Cummins to Kohli, short of a length on off, defended back to the bowler.",
-      timestamp: "14:30",
-      runs: 0
+      timestamp: "14:30"
     },
     {
       id: "ball4",
-      over: "41.6",
+      ball_data: {
+        ball_number: 41.6,
+        batsman: "KL Rahul",
+        bowler: "Mitchell Starc",
+        runs_scored: 1,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { is_wicket: false },
+        match_context: {
+          current_score: { runs: 251, wickets: 4 },
+          overs: 41.6,
+          target: null
+        }
+      },
       text: "Starc to Rahul, yorker on leg stump, dug out towards midwicket for a quick single.",
-      timestamp: "14:28",
-      runs: 1
+      timestamp: "14:28"
     },
     {
       id: "ball5",
-      over: "41.5",
+      ball_data: {
+        ball_number: 41.5,
+        batsman: "KL Rahul",
+        bowler: "Mitchell Starc",
+        runs_scored: 0,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { is_wicket: false },
+        match_context: {
+          current_score: { runs: 250, wickets: 4 },
+          overs: 41.5,
+          target: null
+        }
+      },
       text: "Starc to Rahul, bouncer outside off, Rahul ducks under it comfortably.",
-      timestamp: "14:27",
-      runs: 0
+      timestamp: "14:27"
     },
     {
       id: "ball6",
-      over: "41.4",
+      ball_data: {
+        ball_number: 41.4,
+        batsman: "Rishabh Pant",
+        bowler: "Mitchell Starc",
+        runs_scored: 0,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { 
+          is_wicket: true,
+          dismissal_type: "caught",
+          player_out: "Rishabh Pant",
+          fielder: "Alex Carey"
+        },
+        match_context: {
+          current_score: { runs: 250, wickets: 4 },
+          overs: 41.4,
+          target: null
+        }
+      },
       text: "WICKET! Starc to Pant, caught behind! Pant tries to slash a wide delivery but only manages a thick edge. Carey takes an easy catch behind the stumps.",
-      timestamp: "14:26",
-      isWicket: true
+      timestamp: "14:26"
     },
     {
       id: "ball7",
-      over: "41.3",
+      ball_data: {
+        ball_number: 41.3,
+        batsman: "Rishabh Pant",
+        bowler: "Mitchell Starc",
+        runs_scored: 6,
+        extras: { wides: 0, no_balls: 0, byes: 0, leg_byes: 0 },
+        wicket: { is_wicket: false },
+        match_context: {
+          current_score: { runs: 250, wickets: 3 },
+          overs: 41.3,
+          target: null
+        }
+      },
       text: "Starc to Pant, SIX! Monster hit! Pant steps down the track and launches the ball over long-on for a massive six!",
-      timestamp: "14:25",
-      runs: 6,
-      isBoundary: true
+      timestamp: "14:25"
     }
   ]
 };

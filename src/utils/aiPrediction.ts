@@ -1,4 +1,6 @@
 
+import { BallData } from "@/types/BallData";
+
 // This is a mock AI prediction service that simulates generating predictions
 
 interface PredictionResult {
@@ -43,27 +45,22 @@ export const aiPredictionService = {
     };
   },
   
-  generateCommentary: async (ballUpdate: {
-    over: string;
-    runs: number;
-    isWicket: boolean;
-    isBoundary: boolean;
-  }): Promise<string> => {
+  generateCommentary: async (ballData: BallData): Promise<string> => {
     // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 300));
     
     // In a real app, this would call an AI model API
     // For now, return mock commentary based on ball update
-    if (ballUpdate.isWicket) {
-      return "The batsman tried to play an ambitious shot but couldn't connect properly. The fielder at mid-off took a comfortable catch. A crucial wicket at this stage of the game!";
-    } else if (ballUpdate.isBoundary && ballUpdate.runs === 4) {
-      return "Beautiful shot! The batsman times it perfectly and places it in the gap between cover and point. The ball races away to the boundary for FOUR!";
-    } else if (ballUpdate.isBoundary && ballUpdate.runs === 6) {
-      return "MASSIVE HIT! The batsman clears the front leg and smashes it over long-on. That's gone all the way for SIX! The crowd is loving it!";
-    } else if (ballUpdate.runs === 0) {
-      return "Good delivery, right on the spot. The batsman defends it watchfully back to the bowler.";
+    if (ballData.wicket.is_wicket) {
+      return `The batsman ${ballData.batsman} tried to play an ambitious shot but couldn't connect properly. The fielder took a comfortable catch. A crucial wicket at this stage of the game!`;
+    } else if (ballData.runs_scored === 4) {
+      return `Beautiful shot by ${ballData.batsman}! Perfect timing and placement in the gap between cover and point. The ball races away to the boundary for FOUR!`;
+    } else if (ballData.runs_scored === 6) {
+      return `MASSIVE HIT from ${ballData.batsman}! Clears the front leg and smashes it over long-on. That's gone all the way for SIX! The crowd is loving it!`;
+    } else if (ballData.runs_scored === 0) {
+      return `Good delivery from ${ballData.bowler}, right on the spot. ${ballData.batsman} defends it watchfully back to the bowler.`;
     } else {
-      return `The batsman works it into the gap for ${ballUpdate.runs} run${ballUpdate.runs > 1 ? 's' : ''}.`;
+      return `${ballData.batsman} works it into the gap off ${ballData.bowler} for ${ballData.runs_scored} run${ballData.runs_scored > 1 ? 's' : ''}.`;
     }
   }
 };
