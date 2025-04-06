@@ -54,12 +54,10 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
                 <span className="text-lg md:text-xl font-bold">{team1.shortName}</span>
               </div>
               <p className="mt-2 text-sm md:text-base font-medium">{team1.name}</p>
-              {status !== "upcoming" && (
-                <div className="mt-1">
-                  <span className="score text-xl md:text-2xl font-bold">{`${team1.runs}/${team1.wickets}`}</span>
-                  <span className="text-xs text-gray-500 block">{`(${team1.overs})`}</span>
-                </div>
-              )}
+              <div className="mt-1">
+                <span className="score text-xl md:text-2xl font-bold">{`${team1.runs}/${team1.wickets}`}</span>
+                <span className="text-xs text-gray-500 block">{`(${team1.overs})`}</span>
+              </div>
             </div>
 
             <div className="text-center">
@@ -71,12 +69,10 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
                 <span className="text-lg md:text-xl font-bold">{team2.shortName}</span>
               </div>
               <p className="mt-2 text-sm md:text-base font-medium">{team2.name}</p>
-              {status !== "upcoming" && (
-                <div className="mt-1">
-                  <span className="score text-xl md:text-2xl font-bold">{`${team2.runs}/${team2.wickets}`}</span>
-                  <span className="text-xs text-gray-500 block">{`(${team2.overs})`}</span>
-                </div>
-              )}
+              <div className="mt-1">
+                <span className="score text-xl md:text-2xl font-bold">{`${team2.runs}/${team2.wickets}`}</span>
+                <span className="text-xs text-gray-500 block">{`(${team2.overs})`}</span>
+              </div>
             </div>
           </div>
 

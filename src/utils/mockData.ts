@@ -1,4 +1,3 @@
-
 import { MatchProps } from "@/components/LiveMatchCard";
 import { CommentaryItem } from "@/components/Commentary";
 
@@ -26,27 +25,6 @@ export const mockData = {
       time: "14:30",
       series: "Border-Gavaskar Trophy 2025",
       battingTeam: "team1" as const
-    },
-    {
-      id: "match2",
-      team1: {
-        name: "England",
-        shortName: "ENG",
-        runs: 0,
-        wickets: 0,
-        overs: "0.0"
-      },
-      team2: {
-        name: "South Africa",
-        shortName: "SA",
-        runs: 0,
-        wickets: 0,
-        overs: "0.0"
-      },
-      status: "upcoming" as const,
-      venue: "Lord's, London",
-      time: "Tomorrow, 15:00",
-      series: "Test Series 2025"
     }
   ],
   

@@ -38,7 +38,7 @@ const Index = () => {
       <main className="container mx-auto px-4 py-6">
         <section className="mb-10">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-cricket-green">Live & Upcoming Matches</h2>
+            <h2 className="text-2xl font-bold text-cricket-green">Live Matches</h2>
           </div>
           
           {loading ? (
@@ -74,7 +74,7 @@ const Index = () => {
             </div>
           ) : (
             <div className="text-center py-10 bg-white rounded-lg shadow-sm border border-gray-100">
-              <p className="text-gray-500">No live or upcoming matches at the moment</p>
+              <p className="text-gray-500">No live matches at the moment</p>
             </div>
           )}
         </section>

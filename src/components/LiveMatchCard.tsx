@@ -16,7 +16,7 @@ export interface MatchProps {
   id: string;
   team1: TeamScore;
   team2: TeamScore;
-  status: "live" | "upcoming" | "completed";
+  status: "live" | "completed";
   venue: string;
   time: string;
   series: string;
@@ -39,8 +39,6 @@ const LiveMatchCard: React.FC<MatchProps> = ({
     switch (status) {
       case "live":
         return "status-live";
-      case "upcoming":
-        return "status-upcoming";
       case "completed":
         return "status-completed";
     }
@@ -50,8 +48,6 @@ const LiveMatchCard: React.FC<MatchProps> = ({
     switch (status) {
       case "live":
         return "LIVE";
-      case "upcoming":
-        return time;
       case "completed":
         return "COMPLETED";
     }
@@ -76,10 +72,10 @@ const LiveMatchCard: React.FC<MatchProps> = ({
               </div>
               <div className="flex items-center">
                 <span className={`score ${battingTeam === "team1" ? "text-cricket-red" : ""}`}>
-                  {status !== "upcoming" ? `${team1.runs}/${team1.wickets}` : ""}
+                  {`${team1.runs}/${team1.wickets}`}
                 </span>
                 <span className="text-xs text-gray-500 ml-2">
-                  {status !== "upcoming" && battingTeam === "team1" ? `(${team1.overs})` : ""}
+                  {battingTeam === "team1" ? `(${team1.overs})` : ""}
                 </span>
               </div>
             </div>
@@ -93,10 +89,10 @@ const LiveMatchCard: React.FC<MatchProps> = ({
               </div>
               <div className="flex items-center">
                 <span className={`score ${battingTeam === "team2" ? "text-cricket-red" : ""}`}>
-                  {status !== "upcoming" ? `${team2.runs}/${team2.wickets}` : ""}
+                  {`${team2.runs}/${team2.wickets}`}
                 </span>
                 <span className="text-xs text-gray-500 ml-2">
-                  {status !== "upcoming" && battingTeam === "team2" ? `(${team2.overs})` : ""}
+                  {battingTeam === "team2" ? `(${team2.overs})` : ""}
                 </span>
               </div>
             </div>
