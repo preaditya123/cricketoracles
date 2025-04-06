@@ -56,16 +56,16 @@ const LiveMatchCard: React.FC<MatchProps> = ({
   return (
     <Link to={`/match/${id}`}>
       <Card className="cricket-card h-full">
-        <CardContent className="pt-3 pb-1"> {/* Reduced padding top from pt-4 to pt-3 */}
-          <div className="flex justify-between items-center mb-1"> {/* Reduced margin bottom from mb-2 to mb-1 */}
+        <CardContent className="pt-4">
+          <div className="flex justify-between items-center mb-2">
             <span className="text-xs text-gray-500">{series}</span>
             <span className={getStatusClass()}>{getStatusText()}</span>
           </div>
           
-          <div className="space-y-2"> {/* Reduced spacing from space-y-3 to space-y-2 */}
+          <div className="space-y-3">
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <div className="w-7 h-7 bg-cricket-gray rounded-full flex items-center justify-center"> {/* Reduced size from w-8 h-8 to w-7 h-7 */}
+                <div className="w-8 h-8 bg-cricket-gray rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">{team1.shortName}</span>
                 </div>
                 <span className="team-name">{team1.name}</span>
@@ -82,7 +82,7 @@ const LiveMatchCard: React.FC<MatchProps> = ({
 
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <div className="w-7 h-7 bg-cricket-gray rounded-full flex items-center justify-center"> {/* Reduced size from w-8 h-8 to w-7 h-7 */}
+                <div className="w-8 h-8 bg-cricket-gray rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">{team2.shortName}</span>
                 </div>
                 <span className="team-name">{team2.name}</span>
@@ -98,12 +98,12 @@ const LiveMatchCard: React.FC<MatchProps> = ({
             </div>
           </div>
         </CardContent>
-        <CardFooter className="border-t pt-2 pb-2"> {/* Reduced padding from pt-3 pb-3 to pt-2 pb-2 */}
+        <CardFooter className="border-t pt-3 pb-3">
           <div className="w-full">
             <p className="text-xs text-gray-500">{venue}</p>
             {result && <p className="text-sm font-medium mt-1">{result}</p>}
             {status === "live" && (
-              <Badge variant="outline" className="mt-1 bg-cricket-green/10 text-cricket-green border-cricket-green"> {/* Reduced margin top from mt-2 to mt-1 */}
+              <Badge variant="outline" className="mt-2 bg-cricket-green/10 text-cricket-green border-cricket-green">
                 Watch Live
               </Badge>
             )}
