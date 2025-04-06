@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,12 +34,6 @@
     --ring: 147 70% 18%;
 
     --radius: 0.5rem;
-  }
-
-  .dark {
-    /* Keep most colors the same, only change body background in App.css */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
   }
 }
 
