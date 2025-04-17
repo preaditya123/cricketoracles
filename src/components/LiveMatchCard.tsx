@@ -22,6 +22,7 @@ export interface MatchProps {
   series: string;
   result?: string;
   battingTeam?: "team1" | "team2";
+  isFromApi?: boolean; // New flag to indicate if data is from real API
 }
 
 const LiveMatchCard: React.FC<MatchProps> = ({
@@ -33,7 +34,8 @@ const LiveMatchCard: React.FC<MatchProps> = ({
   time,
   series,
   result,
-  battingTeam
+  battingTeam,
+  isFromApi = false
 }) => {
   const getStatusClass = () => {
     switch (status) {
@@ -56,49 +58,56 @@ const LiveMatchCard: React.FC<MatchProps> = ({
   return (
     <Link to={`/match/${id}`}>
       <Card className="cricket-card h-full">
-        <CardContent className="pt-4">
+        <CardContent className="pt-3">
           <div className="flex justify-between items-center mb-2">
             <span className="text-xs text-gray-500">{series}</span>
-            <span className={getStatusClass()}>{getStatusText()}</span>
+            <div className="flex items-center space-x-2">
+              {isFromApi && (
+                <Badge variant="outline" className="bg-blue-50 text-blue-600 text-xs border-blue-200">
+                  API
+                </Badge>
+              )}
+              <span className={getStatusClass()}>{getStatusText()}</span>
+            </div>
           </div>
           
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-cricket-gray rounded-full flex items-center justify-center">
+              <div className="flex items-center space-x-2">
+                <div className="w-7 h-7 bg-cricket-gray rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">{team1.shortName}</span>
                 </div>
-                <span className="team-name">{team1.name}</span>
+                <span className="team-name text-sm">{team1.name}</span>
               </div>
               <div className="flex items-center">
-                <span className={`score ${battingTeam === "team1" ? "text-cricket-red" : ""}`}>
+                <span className={`score text-sm font-medium ${battingTeam === "team1" ? "text-cricket-red" : ""}`}>
                   {`${team1.runs}/${team1.wickets}`}
                 </span>
-                <span className="text-xs text-gray-500 ml-2">
+                <span className="text-xs text-gray-500 ml-1">
                   {battingTeam === "team1" ? `(${team1.overs})` : ""}
                 </span>
               </div>
             </div>
 
             <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-cricket-gray rounded-full flex items-center justify-center">
+              <div className="flex items-center space-x-2">
+                <div className="w-7 h-7 bg-cricket-gray rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">{team2.shortName}</span>
                 </div>
-                <span className="team-name">{team2.name}</span>
+                <span className="team-name text-sm">{team2.name}</span>
               </div>
               <div className="flex items-center">
-                <span className={`score ${battingTeam === "team2" ? "text-cricket-red" : ""}`}>
+                <span className={`score text-sm font-medium ${battingTeam === "team2" ? "text-cricket-red" : ""}`}>
                   {`${team2.runs}/${team2.wickets}`}
                 </span>
-                <span className="text-xs text-gray-500 ml-2">
+                <span className="text-xs text-gray-500 ml-1">
                   {battingTeam === "team2" ? `(${team2.overs})` : ""}
                 </span>
               </div>
             </div>
           </div>
         </CardContent>
-        <CardFooter className="border-t pt-3 pb-3">
+        <CardFooter className="border-t pt-2 pb-2">
           <div className="w-full">
             <p className="text-xs text-gray-500">{venue}</p>
             {result && <p className="text-sm font-medium mt-1">{result}</p>}
