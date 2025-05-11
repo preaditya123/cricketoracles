@@ -65,7 +65,8 @@ const Commentary: React.FC<CommentaryProps> = ({ commentary }) => {
                   {`Over ${over}`}
                 </h3>
                 <div className="space-y-4">
-                  {items.map((item) => (
+                  {/* Reverse the order of balls within each over */}
+                  {[...items].sort((a, b) => b.ball_data.ball_number - a.ball_data.ball_number).map((item) => (
                     <div 
                       key={item.id} 
                       className={`p-3 rounded-md ${
