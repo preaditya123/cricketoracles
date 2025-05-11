@@ -18,19 +18,29 @@ export const apiService = {
     return mockData.pastMatches;
   },
   
-  getMatchDetails: async (id: string): Promise<{match: MatchProps, commentary: CommentaryItem[]}> => {
+  getMatchDetails: async (id: string): Promise<{
+    match: MatchProps, 
+    commentary: CommentaryItem[],
+    bowlingStats: any,
+    powerplays: any,
+    fallOfWickets: any
+  }> => {
     // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 700));
     
     // For past matches, use the detailed commentary
     if (id.startsWith("past")) {
+      const details = getMatchDetails(id);
       return {
-        match: getMatchDetails(id).match,
-        commentary: mockCommentary
+        match: details.match,
+        commentary: mockCommentary,
+        bowlingStats: details.bowlingStats,
+        powerplays: details.powerplays,
+        fallOfWickets: details.fallOfWickets
       };
     }
     
-    // For live matches, use the regular commentary
+    // For live matches, use the regular commentary and details
     return getMatchDetails(id);
   }
 };
