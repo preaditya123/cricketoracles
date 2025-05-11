@@ -2,6 +2,7 @@
 import { MatchProps } from "@/components/LiveMatchCard";
 import { CommentaryItem } from "@/components/Commentary";
 import { mockData, getMatchDetails } from "./mockData";
+import { mockCommentary } from "./mockCommentary";
 
 // This is a mock API service that simulates fetching data from an API
 export const apiService = {
@@ -20,6 +21,16 @@ export const apiService = {
   getMatchDetails: async (id: string): Promise<{match: MatchProps, commentary: CommentaryItem[]}> => {
     // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 700));
+    
+    // For past matches, use the detailed commentary
+    if (id.startsWith("past")) {
+      return {
+        match: getMatchDetails(id).match,
+        commentary: mockCommentary
+      };
+    }
+    
+    // For live matches, use the regular commentary
     return getMatchDetails(id);
   }
 };
