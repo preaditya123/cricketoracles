@@ -11,6 +11,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 interface MatchDetailsProps {
   match: MatchProps;
   commentary: CommentaryItem[];
+  bowlingStats?: {
+    team1: BowlerScorecard[];
+    team2: BowlerScorecard[];
+  };
+  powerplays?: {
+    team1: { mandatory: { overs: string; runs: number } };
+    team2: { mandatory: { overs: string; runs: number } };
+  };
+  fallOfWickets?: {
+    team1: FallOfWicket[];
+    team2: FallOfWicket[];
+  };
   prediction: {
     team1: {
       name: string;
@@ -39,9 +51,31 @@ interface BatterScorecard {
   strikeRate: number;
 }
 
+// Interface for bowling scorecard data
+interface BowlerScorecard {
+  name: string;
+  overs: number | string;
+  maidens: number;
+  runs: number;
+  wickets: number;
+  noBalls: number;
+  wides: number;
+  economy: number;
+}
+
+// Interface for fall of wicket data
+interface FallOfWicket {
+  wicket: string;
+  player: string;
+  over: string;
+}
+
 const MatchDetails: React.FC<MatchDetailsProps> = ({
   match,
   commentary,
+  bowlingStats,
+  powerplays,
+  fallOfWickets,
   prediction,
 }) => {
   const { team1, team2, venue, series, status } = match;
@@ -72,6 +106,10 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
     { name: "Ramandeep Singh", dismissal: "not out", runs: 4, balls: 4, fours: 0, sixes: 0, strikeRate: 100.00 },
   ];
 
+  // Display the not batted players
+  const didNotBatTeam1 = ["Khaleel Ahmed", "Matheesha Pathirana"];
+  const didNotBatTeam2 = ["Moeen", "Vaibhav Arora", "Varun Chakaravarthy", "Harshit Rana"];
+
   return (
     <div className="space-y-6">
       <Card className="cricket-card">
@@ -93,8 +131,7 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
               </div>
               <p className="mt-2 text-sm md:text-base font-medium">{team1.name}</p>
               <div className="mt-1">
-                <span className="score text-xl md:text-2xl font-bold">{`${team1.runs}/${team1.wickets}`}</span>
-                <span className="text-xs text-gray-500 block">{`(${team1.overs})`}</span>
+                <span className="score text-xl md:text-2xl font-bold">{`${team1.runs}-${team1.wickets} (${team1.overs})`}</span>
               </div>
             </div>
 
@@ -108,8 +145,7 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
               </div>
               <p className="mt-2 text-sm md:text-base font-medium">{team2.name}</p>
               <div className="mt-1">
-                <span className="score text-xl md:text-2xl font-bold">{`${team2.runs}/${team2.wickets}`}</span>
-                <span className="text-xs text-gray-500 block">{`(${team2.overs})`}</span>
+                <span className="score text-xl md:text-2xl font-bold">{`${team2.runs}-${team2.wickets} (${team2.overs})`}</span>
               </div>
             </div>
           </div>
@@ -138,60 +174,9 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg">{match.status === "completed" ? "Scorecard" : "Live Scorecard"}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  {/* Team 1 Batting */}
+                <CardContent className="space-y-8">
+                  {/* Team 2 (KKR) Batting */}
                   <div className="mb-6">
-                    <h3 className="text-md font-bold mb-2 text-blue-600">
-                      {team1.name} Innings
-                      <span className="ml-2 text-sm font-normal text-gray-600">
-                        {`${team1.runs}-${team1.wickets} (${team1.overs} Ov)`}
-                      </span>
-                    </h3>
-                    <div className="overflow-auto">
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead className="w-[220px]">Batter</TableHead>
-                            <TableHead>R</TableHead>
-                            <TableHead>B</TableHead>
-                            <TableHead>4s</TableHead>
-                            <TableHead>6s</TableHead>
-                            <TableHead>SR</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {team1BattingScorecard.map((batter, index) => (
-                            <TableRow key={`team1-${index}`}>
-                              <TableCell>
-                                <div>
-                                  <div className="font-medium text-blue-500 hover:underline cursor-pointer">
-                                    {batter.name}
-                                  </div>
-                                  <div className="text-xs text-gray-500">{batter.dismissal}</div>
-                                </div>
-                              </TableCell>
-                              <TableCell className="font-medium">{batter.runs}</TableCell>
-                              <TableCell>{batter.balls}</TableCell>
-                              <TableCell>{batter.fours}</TableCell>
-                              <TableCell>{batter.sixes}</TableCell>
-                              <TableCell>{batter.strikeRate.toFixed(2)}</TableCell>
-                            </TableRow>
-                          ))}
-                          <TableRow>
-                            <TableCell colSpan={1}>
-                              <div className="font-medium">Extras</div>
-                            </TableCell>
-                            <TableCell colSpan={5} className="text-sm">
-                              5 (b 0, lb 1, w 4, nb 0, p 0)
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </div>
-                  </div>
-
-                  {/* Team 2 Batting */}
-                  <div>
                     <h3 className="text-md font-bold mb-2 text-blue-600">
                       {team2.name} Innings
                       <span className="ml-2 text-sm font-normal text-gray-600">
@@ -236,9 +221,252 @@ const MatchDetails: React.FC<MatchDetailsProps> = ({
                               6 (b 0, lb 4, w 2, nb 0, p 0)
                             </TableCell>
                           </TableRow>
+                          <TableRow>
+                            <TableCell colSpan={1}>
+                              <div className="font-medium">Total</div>
+                            </TableCell>
+                            <TableCell colSpan={5} className="text-sm font-medium">
+                              179 (6 wkts, 20 Ov)
+                            </TableCell>
+                          </TableRow>
                         </TableBody>
                       </Table>
                     </div>
+
+                    {/* Did not bat section */}
+                    <div className="mt-3 text-sm">
+                      <span className="font-medium">Did not Bat: </span>
+                      {didNotBatTeam2.map((player, idx) => (
+                        <React.Fragment key={idx}>
+                          <span className="text-blue-500 hover:underline cursor-pointer">{player}</span>
+                          {idx < didNotBatTeam2.length - 1 && ", "}
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    {/* Fall of wickets section */}
+                    {fallOfWickets && (
+                      <div className="mt-3 text-sm">
+                        <span className="font-medium">Fall of Wickets: </span>
+                        {fallOfWickets.team2.map((wicket, idx) => (
+                          <React.Fragment key={idx}>
+                            <span>{wicket.wicket} ({wicket.player}, {wicket.over})</span>
+                            {idx < fallOfWickets.team2.length - 1 && ", "}
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Team 1 (CSK) Bowling */}
+                    <div className="mt-6">
+                      <h4 className="text-sm font-bold mb-2">Bowling</h4>
+                      <div className="overflow-auto">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead className="w-[180px]">Bowler</TableHead>
+                              <TableHead>O</TableHead>
+                              <TableHead>M</TableHead>
+                              <TableHead>R</TableHead>
+                              <TableHead>W</TableHead>
+                              <TableHead>NB</TableHead>
+                              <TableHead>WD</TableHead>
+                              <TableHead>ECO</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {bowlingStats && bowlingStats.team2.map((bowler, index) => (
+                              <TableRow key={`team1-bowling-${index}`}>
+                                <TableCell>
+                                  <div className="font-medium text-blue-500 hover:underline cursor-pointer">
+                                    {bowler.name}
+                                  </div>
+                                </TableCell>
+                                <TableCell>{bowler.overs}</TableCell>
+                                <TableCell>{bowler.maidens}</TableCell>
+                                <TableCell>{bowler.runs}</TableCell>
+                                <TableCell className="font-medium">{bowler.wickets}</TableCell>
+                                <TableCell>{bowler.noBalls}</TableCell>
+                                <TableCell>{bowler.wides}</TableCell>
+                                <TableCell>{bowler.economy.toFixed(2)}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </div>
+
+                    {/* Powerplays section */}
+                    {powerplays && (
+                      <div className="mt-6">
+                        <h4 className="text-sm font-bold mb-2">Powerplays</h4>
+                        <div className="overflow-auto">
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>Type</TableHead>
+                                <TableHead>Overs</TableHead>
+                                <TableHead>Runs</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell>Mandatory</TableCell>
+                                <TableCell>{powerplays.team2.mandatory.overs}</TableCell>
+                                <TableCell>{powerplays.team2.mandatory.runs}</TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Team 1 (CSK) Batting */}
+                  <div>
+                    <h3 className="text-md font-bold mb-2 text-blue-600">
+                      {team1.name} Innings
+                      <span className="ml-2 text-sm font-normal text-gray-600">
+                        {`${team1.runs}-${team1.wickets} (${team1.overs} Ov)`}
+                      </span>
+                    </h3>
+                    <div className="overflow-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="w-[220px]">Batter</TableHead>
+                            <TableHead>R</TableHead>
+                            <TableHead>B</TableHead>
+                            <TableHead>4s</TableHead>
+                            <TableHead>6s</TableHead>
+                            <TableHead>SR</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {team1BattingScorecard.map((batter, index) => (
+                            <TableRow key={`team1-${index}`}>
+                              <TableCell>
+                                <div>
+                                  <div className="font-medium text-blue-500 hover:underline cursor-pointer">
+                                    {batter.name}
+                                  </div>
+                                  <div className="text-xs text-gray-500">{batter.dismissal}</div>
+                                </div>
+                              </TableCell>
+                              <TableCell className="font-medium">{batter.runs}</TableCell>
+                              <TableCell>{batter.balls}</TableCell>
+                              <TableCell>{batter.fours}</TableCell>
+                              <TableCell>{batter.sixes}</TableCell>
+                              <TableCell>{batter.strikeRate.toFixed(2)}</TableCell>
+                            </TableRow>
+                          ))}
+                          <TableRow>
+                            <TableCell colSpan={1}>
+                              <div className="font-medium">Extras</div>
+                            </TableCell>
+                            <TableCell colSpan={5} className="text-sm">
+                              5 (b 0, lb 1, w 4, nb 0, p 0)
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell colSpan={1}>
+                              <div className="font-medium">Total</div>
+                            </TableCell>
+                            <TableCell colSpan={5} className="text-sm font-medium">
+                              183 (8 wkts, 19.4 Ov)
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+
+                    {/* Did not bat section */}
+                    <div className="mt-3 text-sm">
+                      <span className="font-medium">Did not Bat: </span>
+                      {didNotBatTeam1.map((player, idx) => (
+                        <React.Fragment key={idx}>
+                          <span className="text-blue-500 hover:underline cursor-pointer">{player}</span>
+                          {idx < didNotBatTeam1.length - 1 && ", "}
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    {/* Fall of wickets section */}
+                    {fallOfWickets && (
+                      <div className="mt-3 text-sm">
+                        <span className="font-medium">Fall of Wickets: </span>
+                        {fallOfWickets.team1.map((wicket, idx) => (
+                          <React.Fragment key={idx}>
+                            <span>{wicket.wicket} ({wicket.player}, {wicket.over})</span>
+                            {idx < fallOfWickets.team1.length - 1 && ", "}
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Team 2 (KKR) Bowling */}
+                    <div className="mt-6">
+                      <h4 className="text-sm font-bold mb-2">Bowling</h4>
+                      <div className="overflow-auto">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead className="w-[180px]">Bowler</TableHead>
+                              <TableHead>O</TableHead>
+                              <TableHead>M</TableHead>
+                              <TableHead>R</TableHead>
+                              <TableHead>W</TableHead>
+                              <TableHead>NB</TableHead>
+                              <TableHead>WD</TableHead>
+                              <TableHead>ECO</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {bowlingStats && bowlingStats.team1.map((bowler, index) => (
+                              <TableRow key={`team2-bowling-${index}`}>
+                                <TableCell>
+                                  <div className="font-medium text-blue-500 hover:underline cursor-pointer">
+                                    {bowler.name}
+                                  </div>
+                                </TableCell>
+                                <TableCell>{bowler.overs}</TableCell>
+                                <TableCell>{bowler.maidens}</TableCell>
+                                <TableCell>{bowler.runs}</TableCell>
+                                <TableCell className="font-medium">{bowler.wickets}</TableCell>
+                                <TableCell>{bowler.noBalls}</TableCell>
+                                <TableCell>{bowler.wides}</TableCell>
+                                <TableCell>{bowler.economy.toFixed(2)}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </div>
+
+                    {/* Powerplays section */}
+                    {powerplays && (
+                      <div className="mt-6">
+                        <h4 className="text-sm font-bold mb-2">Powerplays</h4>
+                        <div className="overflow-auto">
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>Type</TableHead>
+                                <TableHead>Overs</TableHead>
+                                <TableHead>Runs</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell>Mandatory</TableCell>
+                                <TableCell>{powerplays.team1.mandatory.overs}</TableCell>
+                                <TableCell>{powerplays.team1.mandatory.runs}</TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>

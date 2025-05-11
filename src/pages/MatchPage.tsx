@@ -13,6 +13,9 @@ const MatchPage = () => {
   const { id } = useParams<{ id: string }>();
   const [match, setMatch] = useState<MatchProps | null>(null);
   const [commentary, setCommentary] = useState<CommentaryItem[]>([]);
+  const [bowlingStats, setBowlingStats] = useState<any>(null);
+  const [powerplays, setPowerplays] = useState<any>(null);
+  const [fallOfWickets, setFallOfWickets] = useState<any>(null);
   const [prediction, setPrediction] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -28,6 +31,9 @@ const MatchPage = () => {
         
         setMatch(matchData.match);
         setCommentary(matchData.commentary);
+        setBowlingStats(matchData.bowlingStats);
+        setPowerplays(matchData.powerplays);
+        setFallOfWickets(matchData.fallOfWickets);
         setPrediction(predictionData);
         setLoading(false);
       } catch (error) {
@@ -56,6 +62,9 @@ const MatchPage = () => {
           <MatchDetails
             match={match}
             commentary={commentary}
+            bowlingStats={bowlingStats}
+            powerplays={powerplays}
+            fallOfWickets={fallOfWickets}
             prediction={prediction}
           />
         ) : (
