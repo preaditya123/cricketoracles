@@ -1,4 +1,3 @@
-
 import { MatchProps } from "@/components/LiveMatchCard";
 import { CommentaryItem } from "@/components/Commentary";
 import { BallData } from "@/types/BallData";
@@ -9,23 +8,23 @@ export const mockData = {
     {
       id: "match1",
       team1: {
-        name: "India",
-        shortName: "IND",
-        runs: 256,
-        wickets: 4,
-        overs: "42.3"
+        name: "Chennai Super Kings",
+        shortName: "CSK",
+        runs: 183,
+        wickets: 8,
+        overs: "19.4"
       },
       team2: {
-        name: "Australia",
-        shortName: "AUS",
-        runs: 0,
-        wickets: 0,
-        overs: "0.0"
+        name: "Kolkata Knight Riders",
+        shortName: "KKR",
+        runs: 179,
+        wickets: 6,
+        overs: "20.0"
       },
       status: "live" as const,
-      venue: "Melbourne Cricket Ground, Australia",
+      venue: "Eden Gardens, Kolkata",
       time: "14:30",
-      series: "Border-Gavaskar Trophy 2025",
+      series: "Indian Premier League 2025",
       battingTeam: "team1" as const
     }
   ],
@@ -34,68 +33,68 @@ export const mockData = {
     {
       id: "past1",
       team1: {
-        name: "India",
-        shortName: "IND",
-        runs: 302,
+        name: "Chennai Super Kings",
+        shortName: "CSK",
+        runs: 183,
         wickets: 8,
-        overs: "50.0"
+        overs: "19.4"
       },
       team2: {
-        name: "Pakistan",
-        shortName: "PAK",
-        runs: 289,
-        wickets: 10,
-        overs: "48.4"
+        name: "Kolkata Knight Riders",
+        shortName: "KKR",
+        runs: 179,
+        wickets: 6,
+        overs: "20.0"
       },
       status: "completed" as const,
-      venue: "Dubai International Stadium",
+      venue: "Eden Gardens, Kolkata",
       time: "",
-      series: "Asia Cup 2025",
-      result: "India won by 13 runs"
+      series: "Indian Premier League 2025",
+      result: "CSK won by 2 wickets"
     },
     {
       id: "past2",
       team1: {
-        name: "New Zealand",
-        shortName: "NZ",
-        runs: 241,
-        wickets: 10,
-        overs: "50.0"
+        name: "Chennai Super Kings",
+        shortName: "CSK",
+        runs: 183,
+        wickets: 8,
+        overs: "19.4"
       },
       team2: {
-        name: "England",
-        shortName: "ENG",
-        runs: 241,
-        wickets: 10,
-        overs: "50.0"
+        name: "Kolkata Knight Riders",
+        shortName: "KKR",
+        runs: 179,
+        wickets: 6,
+        overs: "20.0"
       },
       status: "completed" as const,
-      venue: "Lord's, London",
+      venue: "Eden Gardens, Kolkata",
       time: "",
-      series: "ICC World Cup 2025",
-      result: "Match tied, England won on boundary count"
+      series: "Indian Premier League 2025",
+      result: "CSK won by 2 wickets"
     },
     {
       id: "past3",
       team1: {
-        name: "Australia",
-        shortName: "AUS",
-        runs: 328,
-        wickets: 7,
-        overs: "50.0"
+        name: "Chennai Super Kings",
+        shortName: "CSK",
+        runs: 183,
+        wickets: 8,
+        overs: "19.4"
       },
       team2: {
-        name: "West Indies",
-        shortName: "WI",
-        runs: 273,
-        wickets: 10,
-        overs: "46.2"
+        name: "Kolkata Knight Riders",
+        shortName: "KKR",
+        runs: 179,
+        wickets: 6,
+        overs: "20.0"
       },
       status: "completed" as const,
-      venue: "Sydney Cricket Ground",
+      venue: "Eden Gardens, Kolkata",
       time: "",
-      series: "ODI Series 2025",
-      result: "Australia won by 55 runs"
+      series: "Indian Premier League 2025",
+      result: "CSK won by 2 wickets"
     }
   ],
   
